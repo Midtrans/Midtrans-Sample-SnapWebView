@@ -2,6 +2,7 @@ package com.midtrans.snapwebview;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -11,18 +12,28 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 public class MyWebView extends AppCompatActivity {
+
+    AppCompatButton btnCloseSnap;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_web_view);
+        btnCloseSnap = findViewById(R.id.btn_closeSnap);
+        btnCloseSnap.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        });
 
         Intent in = getIntent();
         String url = in.getStringExtra("URL");
+
         openUrlFromWebView(url);
     }
 
@@ -72,6 +83,5 @@ public class MyWebView extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.loadUrl(url);
-
     }
 }
